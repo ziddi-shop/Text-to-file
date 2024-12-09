@@ -24,35 +24,10 @@
             <option value="pdf">PDF File (.pdf)</option>
         </select>
         <button onclick="generateFile()">Download File</button>
-        <footer>Built with 💜 by <a href="javascript:void(0);" onclick="window.open(atob('aHR0cHM6Ly90Lm1lL21ldGhvZF9zaG9w'), '_blank');">You</a></footer>
+        <footer>
+            MADE  💜 by <a href="javascript:void(0);" onclick="window.open(atob('aHR0cHM6Ly90Lm1lL21ldGhvZF9zaG9w'), '_blank');">METHOD_SHOP</a>
+        </footer>
     </div>
-    <script>
-        // JavaScript to encode the Telegram link
-        function generateFile() {
-            const fileNameInput = document.getElementById('fileName').value.trim();
-            const content = document.getElementById('fileContent').value;
-            const fileType = document.getElementById('fileType').value;
-
-            if (!fileNameInput) {
-                alert("Please enter a file name.");
-                return;
-            }
-
-            const fileName = `${fileNameInput}.${fileType}`;
-            let mimeType = "text/plain";
-            if (fileType === "html") mimeType = "text/html";
-            else if (fileType === "css") mimeType = "text/css";
-            else if (fileType === "js") mimeType = "application/javascript";
-            else if (fileType === "php") mimeType = "application/x-httpd-php";
-            else if (fileType === "doc") mimeType = "application/msword";
-            else if (fileType === "csv") mimeType = "text/csv";
-
-            const blob = new Blob([content], { type: mimeType });
-            const a = document.createElement('a');
-            a.href = URL.createObjectURL(blob);
-            a.download = fileName;
-            a.click();
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
