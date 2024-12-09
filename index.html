@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text To File Generator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Text To File Generator</h1>
+        <input type="text" id="fileName" placeholder="Enter file name (without extension)" />
+        <textarea id="fileContent" placeholder="Type your content here..."></textarea>
+        <select id="fileType">
+            <option value="txt">Text File (.txt)</option>
+            <option value="html">HTML File (.html)</option>
+            <option value="css">CSS File (.css)</option>
+            <option value="js">JavaScript File (.js)</option>
+            <option value="py">Python File (.py)</option>
+            <option value="json">JSON File (.json)</option>
+            <option value="php">PHP File (.php)</option>
+            <option value="doc">Word Document (.doc)</option>
+            <option value="csv">Excel CSV (.csv)</option>
+            <option value="pdf">PDF File (.pdf)</option>
+        </select>
+        <button onclick="generateFile()">Download File</button>
+        <footer>Built with 💜 by <a href="javascript:void(0);" onclick="window.open(atob('aHR0cHM6Ly90Lm1lL21ldGhvZF9zaG9w'), '_blank');">You</a></footer>
+    </div>
+    <script>
+        // JavaScript to encode the Telegram link
+        function generateFile() {
+            const fileNameInput = document.getElementById('fileName').value.trim();
+            const content = document.getElementById('fileContent').value;
+            const fileType = document.getElementById('fileType').value;
+
+            if (!fileNameInput) {
+                alert("Please enter a file name.");
+                return;
+            }
+
+            const fileName = `${fileNameInput}.${fileType}`;
+            let mimeType = "text/plain";
+            if (fileType === "html") mimeType = "text/html";
+            else if (fileType === "css") mimeType = "text/css";
+            else if (fileType === "js") mimeType = "application/javascript";
+            else if (fileType === "php") mimeType = "application/x-httpd-php";
+            else if (fileType === "doc") mimeType = "application/msword";
+            else if (fileType === "csv") mimeType = "text/csv";
+
+            const blob = new Blob([content], { type: mimeType });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = fileName;
+            a.click();
+        }
+    </script>
+</body>
+</html>
